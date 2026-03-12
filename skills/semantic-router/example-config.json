@@ -24,7 +24,7 @@
         "apiKey": "semantic-router-local"
       },
       "ollama": {
-        "baseUrl": "http://127.0.0.1:11434",
+        "baseUrl": "http://ollama:11434",
         "api": "ollama",
         "models": [],
         "apiKey": "ollama-local"
