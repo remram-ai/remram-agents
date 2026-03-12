@@ -1,0 +1,47 @@
+{
+  "requesterDefaults": {
+    "user_id": "local_user",
+    "role": "owner",
+    "auth_level": "trusted",
+    "device": "openclaw"
+  },
+  "guardrails": {
+    "maxEscalationDepth": 2,
+    "forceAnswerAtMaxDepth": true,
+    "allowSpawnAgent": true,
+    "stageTimeoutMs": 30000,
+    "requestBudgetCap": 50000
+  },
+  "stages": [
+    {
+      "id": "local",
+      "provider": "ollama",
+      "model": "qwen3:8b",
+      "promptProfile": "local",
+      "allowedNext": [
+        "reasoning"
+      ],
+      "baseUrlEnv": "OLLAMA_BASE_URL"
+    },
+    {
+      "id": "reasoning",
+      "provider": "together",
+      "modelEnv": "CLOUD_REASONING_MODEL",
+      "fallbackModel": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+      "promptProfile": "reasoning",
+      "allowedNext": [
+        "thinking"
+      ],
+      "apiKeyEnv": "TOGETHER_API_KEY"
+    },
+    {
+      "id": "thinking",
+      "provider": "together",
+      "modelEnv": "DEEP_THINKING_MODEL",
+      "fallbackModel": "Qwen/Qwen3-235B-A22B-Thinking-2507",
+      "promptProfile": "thinking",
+      "allowSpawnAgent": true,
+      "apiKeyEnv": "TOGETHER_API_KEY"
+    }
+  ]
+}

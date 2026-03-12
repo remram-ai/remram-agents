@@ -1,0 +1,52 @@
+{
+  "plugins": {
+    "allow": [
+      "semantic-router"
+    ],
+    "entries": {
+      "semantic-router": {
+        "enabled": true,
+        "hooks": {
+          "allowPromptInjection": true
+        },
+        "config": {
+          "responseFooter": "off"
+        }
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "semantic-router": {
+        "baseUrl": "http://127.0.0.1:<gateway-port>/plugins/semantic-router/router/v1",
+        "api": "openai-completions",
+        "models": [],
+        "apiKey": "semantic-router-local"
+      },
+      "ollama": {
+        "baseUrl": "http://127.0.0.1:11434",
+        "api": "ollama",
+        "models": [],
+        "apiKey": "ollama-local"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "models": {
+        "semantic-router/router": {
+          "alias": "Semantic Router"
+        },
+        "ollama/qwen3:8b": {
+          "alias": "Local Qwen3"
+        },
+        "together/meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8": {
+          "alias": "Reasoning"
+        },
+        "together/Qwen/Qwen3-235B-A22B-Thinking-2507": {
+          "alias": "Thinking"
+        }
+      }
+    }
+  }
+}

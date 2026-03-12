@@ -1,0 +1,27 @@
+{
+  "id": "semantic-router",
+  "name": "Semantic Router",
+  "description": "Local-first staged semantic routing inside the OpenClaw reply lifecycle.",
+  "skills": [
+    "./"
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "routerConfigPath": {
+        "type": "string"
+      },
+      "debugDir": {
+        "type": "string"
+      },
+      "responseFooter": {
+        "type": "string",
+        "enum": [
+          "off",
+          "concise"
+        ]
+      }
+    }
+  }
+}
