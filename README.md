@@ -1,117 +1,54 @@
-# remram-agents
+# remram-skills
 
-OpenClaw-native agent and skill ecosystem for Remram.
+`remram-skills` owns the portable skill and plugin packages used by the Moltbox appliance.
 
-This repository contains all Remram agent definitions and reusable skills implemented against the OpenClaw specification. Agents and skills are modular and can be selectively installed by the runtime layer.
+This repository is not the control plane and it is not the runtime baseline.
+It provides the package source material that `moltbox-gateway` stages into environments and that `moltbox-runtime` may reference from baseline config.
 
-Gateway packages and registers agents. This repository defines their behavior.
+## Current Scope
 
----
+The active package roots live under `skills/`.
 
-## Purpose
+Current examples in this checkout:
 
-`remram-agents` is the behavioral layer of the Remram system.
+- `skills/together-escalation/`: managed skill content for the Together fallback feature
+- `skills/semantic-router/`: plugin-backed skill package retained as implementation material, even though it is no longer part of the active Moltbox runtime baseline
 
-It contains:
+## Ownership Boundary
 
-- Agent definitions
-- Prompt schemas
-- Tool bindings
-- Agent-level escalation logic
-- Reusable skills
-- Shared schemas and utilities
+`remram-skills` owns:
 
-Agents and skills are designed to be composable and independently installable.
+- `SKILL.md` package content
+- plugin package source such as `openclaw.plugin.json`, `index.ts`, and `package.json`
+- skill-local helper files, manifests, and bundled resources
 
----
+`remram-skills` does not own:
 
-## Repository Structure
+- appliance CLI taxonomy
+- service deployment definitions
+- baseline runtime config
+- live runtime replay state on the appliance
 
-remram-agents/
-  agents/
-  skills/
-  shared/
+Those concerns belong to:
 
----
+- `remram` for architecture and platform docs
+- `moltbox-gateway` for CLI, orchestration, and replay state
+- `moltbox-runtime` for baseline runtime configuration
+- `moltbox-services` for service definitions
 
-## agents/
+## Package Model
 
-Each directory inside `agents/` defines a standalone agent.
+OpenClaw-visible skills remain directories containing `SKILL.md`.
 
-Example structure:
+Some packages are pure skill content.
+Some are plugin-backed and also ship an `openclaw.plugin.json` manifest plus code.
 
-agents/
-  hydrate/
-    agent.yaml
-    prompt.md
-    tools.yaml
-    README.md
+Gateway-managed skill deployment currently stages skill directories from this repository into runtime state under `~/.openclaw/skills`.
+Native OpenClaw plugin lifecycle still applies where a package also ships plugin code.
 
-An agent folder typically contains:
+## Related Repositories
 
-- `agent.yaml` — OpenClaw agent definition
-- `prompt.md` — Core prompt and system framing
-- `tools.yaml` — Agent-specific tool bindings
-- `README.md` — Agent documentation
-
-Agents represent product surfaces within Remram.
-
----
-
-## skills/
-
-Reusable behavior modules attachable to one or more agents.
-
-Example structure:
-
-skills/
-  reprompt/
-    skill.yaml
-    logic.ts
-    README.md
-
-Skills may:
-
-- Modify prompts
-- Enhance escalation behavior
-- Add structured memory interaction
-- Improve intent inference
-
-Skills are not standalone agents.
-
----
-
-## shared/
-
-Shared components used across multiple agents and skills.
-
-May include:
-
-- JSON schemas
-- Prompt fragments
-- Validation utilities
-- Common helper logic
-
----
-
-## Packaging Model
-
-Agents and skills are modular.
-
-The runtime layer (`remram-gateway`) selects and registers which agents are active via its `.openclaw/` configuration.
-
-This repository defines behavior.
-Gateway defines availability.
-
----
-
-## System Context
-
-- `remram` → System definition and documentation
-- `remram-gateway` → Execution environment
-- `remram-agents` → Agent and skill definitions (this repo)
-- `remram-cortex` → Knowledge authority
-- `remram-app` → Presentation layer
-
-This repository expands as the Remram ecosystem grows.
-
+- `remram`: architecture, platform registry docs, feature docs
+- `moltbox-gateway`: control plane, `moltbox` CLI, deployment and replay orchestration
+- `moltbox-runtime`: baseline runtime config consumed during deploy
+- `moltbox-services`: service definitions for `gateway`, `caddy`, `ollama`, `opensearch`, and the runtime containers
