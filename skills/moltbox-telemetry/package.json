@@ -1,0 +1,23 @@
+{
+  "name": "moltbox-telemetry",
+  "version": "0.1.0",
+  "description": "Moltbox telemetry normalization plugin for OpenClaw",
+  "type": "module",
+  "openclaw": {
+    "extensions": [
+      "./index.js"
+    ]
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "openclaw": "*"
+  }
+}

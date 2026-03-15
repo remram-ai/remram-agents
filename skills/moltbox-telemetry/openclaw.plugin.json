@@ -1,0 +1,8 @@
+{
+  "id": "moltbox-telemetry",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
